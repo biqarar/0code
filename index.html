@@ -1,105 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-	  <style type="text/css">
-	    *{
-	      transition: 0.5s;
-	    }
-	    body{
-	      background-color: #cccccc;
-	      background-image: url(https://i.postimg.cc/0NG76d10/68-682306-tile-background-background-technology-gray-png.png);
-	      font-size: 70px;
-	    }
-	    div{
-	      height: auto;
-	      width: auto;
-	    }
-	    button{
-	      height: 3em;
-	      width: 3em;
-	      position : absolute;
-	      left     : 50%;
-	      top      : 50%;
-	      transform: translate(-50%,-50%);
-	      font-size: 80%;
-	      border-radius: 50%;
-	      cursor: pointer;
-	      display: inline-block;
-	      text-decoration: none;
-	      text-align: center;
-	      border: none;
+	<head>
+		<title>0code</title>
+		<script type="text/javascript">
+			function make()
+			{
+				var number =
+				[
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+					Math.floor(Math.random() * 9) + 1,
+				];
 
-	    }
-	    button:hover{
-	      background-image: linear-gradient(to right, #0bd, #009eff);
-	      color: white;
-	      box-shadow:
-	    }
-	    span{
-	      height: 1em;
-	      width: auto;
-	      position : absolute;
-	      left     : 50%;
-	      top      : 70%;
-	      transform: translate(-50%,-50%);
-	      background-color: #ccccccc9;
-	      transition: 0.5s;
-	    }
-	  </style>
-	<title>0code</title>
-	<script type="text/javascript">
-		function make()
-{
-	var number =
-	[
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-		Math.floor(Math.random() * 9) + 1,
-	];
+				var lastNumber;
+				var i = 10;
+				var p = 0;
 
-	var lastNumber;
-	var i = 10;
-	var p = 0;
+				number.forEach(function(currentValue, index)
+				{
+					if(i != 1)
+					{
+						p = p + (i * currentValue);
+					}
+					i--;
+				});
 
-	number.forEach(function(currentValue, index)
-	{
-		if(i != 1)
-		{
-			p = p + (i * currentValue);
-		}
-		i--;
-	});
+				var b = p % 11;
 
-	var b = p % 11;
+				if(b < 2)
+				{
+					lastNumber = b;
+				}
+				else
+				{
+					lastNumber = 11 - b;
+				}
 
-	if(b < 2)
-	{
-		lastNumber = b;
-	}
-	else
-	{
-		lastNumber = 11 - b;
-	}
+				var x = number.join('');
 
-	var x = number.join('');
-	x = x + '' + lastNumber;
-
-	document.getElementById("number").innerHTML = x;
-
-};
-
-	</script>
-</head>
-<body>
-
-<button id="atom" onclick="make();">Generate new</button>
-
-<div id="number"></div>
-</body>
+				x = x + '' + lastNumber;
+				document.getElementById("number").innerHTML = x;
+			};
+		</script>
+	</head>
+	<body>
+		<button id="atom" onclick="make();">Generate new</button>
+		<div id="number"></div>
+	</body>
 </html>
