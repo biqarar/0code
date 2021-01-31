@@ -1,56 +1,112 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>0code</title>
-		<script type="text/javascript">
-			function make()
-			{
-				var number =
-				[
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-					Math.floor(Math.random() * 9) + 1,
-				];
+<html prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8"/>
+  <title>0Code</title>
+  <meta content="Need National Card ID? This is yours..." name="description"/>
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><![endif]-->
+  <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.1, user-scalable=0" name="viewport"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="cover.jpg" name="twitter:image"/>
+  <style type="text/css">
+    html{
+      height: 100%;
+    }
+    body{
+      min-height: 100%;
+      margin: 0;
+      background-color: #fafafa;
+    }
+    .text{
+      color: #3f51b5;
+      padding-top: 40vh;
+      display: block;
+      position: relative;
+      text-align: center;
+      margin: 0 auto;
+      font-family: monospace;
+    }
+    #number{
+      font-size: 5rem;
+      letter-spacing: 1rem;
+      word-break: break-all;
+    }
+    @media (max-width: 767px) {
+      #number{
+        font-size: 2rem;
+        letter-spacing: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="text">
+    <div id="number"></div>
+    <p>Paste your code everywhere</p>
+  </section>
+  <script type="text/javascript">
+    var number =
+    [
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+    ];
 
-				var lastNumber;
-				var i = 10;
-				var p = 0;
+    var lastNumber;
+    var i = 10;
+    var p = 0;
 
-				number.forEach(function(currentValue, index)
-				{
-					if(i != 1)
-					{
-						p = p + (i * currentValue);
-					}
-					i--;
-				});
+    number.forEach(function(currentValue, index)
+    {
+      if(i != 1)
+      {
+        p = p + (i * currentValue);
+      }
+      i--;
+    });
 
-				var b = p % 11;
+    var b = p % 11;
 
-				if(b < 2)
-				{
-					lastNumber = b;
-				}
-				else
-				{
-					lastNumber = 11 - b;
-				}
+    if(b < 2)
+    {
+      lastNumber = b;
+    }
+    else
+    {
+      lastNumber = 11 - b;
+    }
 
-				var x = number.join('');
+    var x = number.join('');
 
-				x = x + '' + lastNumber;
-				document.getElementById("number").innerHTML = x;
-			};
-		</script>
-	</head>
-	<body>
-		<button id="atom" onclick="make();">Generate new</button>
-		<div id="number"></div>
-	</body>
+    x = x + '' + lastNumber;
+    document.getElementById("number").innerHTML = x;
+    window.addEventListener('load', copyText);
+    function copyText()
+    {
+      const el = document.createElement('textarea');  // Create a <textarea> element
+      el.value = document.getElementById("number").innerHTML;    // Set its value to the string that you want copied
+      el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';                      // Move outside the screen to make it invisible
+      document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+      const selected =
+        document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+          ? document.getSelection().getRangeAt(0)     // Store selection if found
+          : false;                                    // Mark as false to know no selection existed before
+      el.select();                                    // Select the <textarea> content
+      document.execCommand('copy');
+      document.body.removeChild(el);                  // Remove the <textarea> element
+      if (selected) {                                 // If a selection existed before copying
+        document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+        document.getSelection().addRange(selected);   // Restore the original selection
+      }
+    }
+  </script>
+</body>
 </html>
